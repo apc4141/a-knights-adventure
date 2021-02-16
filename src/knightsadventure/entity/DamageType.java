@@ -1,4 +1,4 @@
-package Entity;
+package knightsadventure.entity;
 
 public enum DamageType {
     PHYSICAL(0, "physical", 'P'),

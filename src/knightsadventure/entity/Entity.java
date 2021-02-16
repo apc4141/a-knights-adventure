@@ -1,4 +1,4 @@
-package Entity;
+package knightsadventure.entity;
 
 import java.util.Random;
 
@@ -26,9 +26,9 @@ public class Entity {
     }
 
     /**
-     *  Has entity handle basic attack
-     * @param attack CompoundAttack that consists of the damage the entity should handle
-     * @return Amount of damage actually taken by entity
+     *  Has knightsadventure.entity handle basic attack
+     * @param attack CompoundAttack that consists of the damage the knightsadventure.entity should handle
+     * @return Amount of damage actually taken by knightsadventure.entity
      */
     private int handleAttack(CompoundAttack attack)
     {

@@ -1,10 +1,10 @@
-package Entity;
+package knightsadventure.entity;
 
 import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Rules the way an entity will manage hits taken and its own health
+ * Rules the way an knightsadventure.entity will manage hits taken and its own health
  */
 public class HealthManager {
 

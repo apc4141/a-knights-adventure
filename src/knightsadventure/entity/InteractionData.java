@@ -1,4 +1,4 @@
-package Entity;
+package knightsadventure.entity;
 
 /**
  * Represents the data for an attack interaction between two entities

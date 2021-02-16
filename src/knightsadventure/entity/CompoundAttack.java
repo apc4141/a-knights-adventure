@@ -1,4 +1,4 @@
-package Entity;
+package knightsadventure.entity;
 
 import java.util.ArrayList;
 

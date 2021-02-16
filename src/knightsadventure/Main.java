@@ -1,4 +1,6 @@
-import Entity.*;
+package knightsadventure;
+
+import knightsadventure.entity.*;
 
 public class Main {
     public static void main(String[] args)
