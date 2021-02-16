@@ -1,11 +1,20 @@
 package Entity;
 
-public class CompoundAttack {
+import java.util.ArrayList;
 
-    public Attack[] attacks;
+/**
+ * Will have an important function later but right now is empty
+ */
+public class CompoundAttack extends ArrayList<Attack> {
 
-    public CompoundAttack(Attack[] attacks)
+    /**
+     * Directly adds an attack
+     * @param attackPower Power of attack
+     * @param damageType Damage type of the attack
+     */
+    public void addAttack(int attackPower, DamageType damageType)
     {
-        this.attacks = attacks;
+        add(new Attack(attackPower, damageType));
     }
+
 }

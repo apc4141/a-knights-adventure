@@ -1,5 +1,6 @@
 package Entity;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -19,8 +20,12 @@ public class HealthManager {
     {
         this.maxHealth = maxHealth;
         this.health = maxHealth;
-        this.absorption = 0;
-        defenses = new int[] { new Random().nextInt(10), 0, 0, 0, 0, 0, 0, 0 };
+        this.absorption = new Random().nextFloat()*15;
+
+        // Init defenses
+        defenses = new int[DamageType.values().length];
+        Arrays.fill(defenses, 0);
+        defenses[0] = new Random().nextInt(100);
     }
 
     public boolean isDead()
@@ -33,9 +38,11 @@ public class HealthManager {
      * then base damage absorption is taken off as a percentage e.g. 5.7 absorption -> damage*=1-(5.7/100)
      * @param cattack CompoundAttack to handle
      */
-    public void handleAttack(CompoundAttack cattack)
+    public int handleAttack(CompoundAttack cattack)
     {
-        for(Attack attack : cattack.attacks) {
+        int totalDamage = 0;
+
+        for(Attack attack : cattack) {
             int damage = attack.attackPower;
             DamageType type = attack.damageType;
 
@@ -43,13 +50,16 @@ public class HealthManager {
             damage = (int) Math.floor(damage * (1 - (absorption/100)));
 
             health -= damage;
+            totalDamage += damage;
             if (health < 0) health = 0;
         }
+
+        return totalDamage;
     }
 
     @Override
     public String toString()
     {
-        return "Defense: "+defenses[0]+"; Health: "+health+"/"+maxHealth;
+        return health+"/"+maxHealth+"HP";
     }
 }

@@ -10,8 +10,14 @@ public class Attack {
         this.damageType = damageType;
     }
 
+    /**
+     *  Converts attack to compound attack
+     * @return Converted compound attack
+     */
     public CompoundAttack toCompound()
     {
-        return new CompoundAttack(new Attack[]{this});
+        CompoundAttack compoundAttack = new CompoundAttack();
+        compoundAttack.add(this);
+        return compoundAttack;
     }
 }

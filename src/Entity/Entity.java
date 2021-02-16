@@ -1,16 +1,21 @@
 package Entity;
 
+import java.util.Random;
+
 /**
  *  Class that represents basic unit that will fight and have health, inventory and stats
  */
 public class Entity {
 
+    private String name;
+
     private HealthManager health;
 
     private int strength;
 
-    public Entity(int maxHealth, int strength)
+    public Entity(String name, int maxHealth, int strength)
     {
+        this.name = name;
         this.health = new HealthManager(maxHealth);
         this.strength = strength;
     }
@@ -23,24 +28,37 @@ public class Entity {
     /**
      *  Has entity handle basic attack
      * @param attack CompoundAttack that consists of the damage the entity should handle
+     * @return Amount of damage actually taken by entity
      */
-    public void handleAttack(CompoundAttack attack)
+    private int handleAttack(CompoundAttack attack)
     {
-        health.handleAttack(attack);
+        return health.handleAttack(attack);
     }
 
     /**
      *  Will calculate correct attack it will do based on stats and equiptment
      *  and with call handleAttack() with paramater of calculated compound attack
      * @param ent Entity that handleAttack() should be called on
+     * @return InteractionData object based on the event
      */
-    public void doAttack(Entity ent)
+    public InteractionData doAttack(Entity ent)
     {
-        ent.handleAttack(new Attack(strength, DamageType.PHYSICAL).toCompound());
+        //For testing purposes this is for now set to a non calculated value
+        CompoundAttack attack = new Attack(strength, DamageType.PHYSICAL).toCompound();
+        attack.addAttack(new Random().nextInt(50), DamageType.FIRE);
+
+        int healthTaken = ent.handleAttack(attack);
+        return new InteractionData(this, ent, attack, healthTaken);
     }
 
-    public String healthAsString()
+    public String getName()
     {
-        return health.toString();
+        return name;
+    }
+
+    @Override
+    public String toString()
+    {
+        return name+": "+health.toString();
     }
 }
