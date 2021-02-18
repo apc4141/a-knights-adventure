@@ -2,6 +2,12 @@ package knightsadventure.entity.inventory;
 
 import knightsadventure.entity.DamageType;
 
+import java.util.Arrays;
+
+/**
+ * Item that is a weapon
+ * Has damage and type
+ */
 public class WeaponItem extends Item {
 
     public int[] damages;
@@ -13,6 +19,18 @@ public class WeaponItem extends Item {
             throw new Exception("damages array must be of length DamageType.values().length");
 
         this.damages = damages;
+        type = weaponType;
+    }
+
+    /**
+     * Creates a weapon with 0 damage
+     */
+    public WeaponItem(String name, WeaponType weaponType) {
+        super(name, ItemType.WEAPON, false);
+
+        this.damages = new int[DamageType.values().length];
+        Arrays.fill(this.damages, 0);
+
         type = weaponType;
     }
 
