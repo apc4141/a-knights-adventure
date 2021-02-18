@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Inventory {
 
-    private ArrayList<ItemStack> items;
+    private final ArrayList<ItemStack> items;
 
     /*
     * Armors:
@@ -22,7 +22,6 @@ public class Inventory {
     
 
     public Inventory() {
-        super();
         items = new ArrayList<ItemStack>();
         armors = new ArmorItem[ArmorType.values().length];
     }

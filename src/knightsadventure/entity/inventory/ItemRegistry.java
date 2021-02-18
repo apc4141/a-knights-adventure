@@ -33,4 +33,13 @@ public class ItemRegistry {
         return true;
     }
 
+    /**
+     * Gets an item from the ItemRegistry
+     * @param id Id of item
+     * @return The item with specified registry id
+     */
+    public static Item getItem(String id) {
+        return registry.get(id);
+    }
+
 }

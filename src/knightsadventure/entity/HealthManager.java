@@ -25,6 +25,36 @@ public class HealthManager {
     }
 
     /**
+     * Sets health to full
+     */
+    public void fullHeal() {
+        health = maxHealth;
+    }
+
+    /**
+     * Heals the player for
+     * @param health Health to heal. Can be percentage
+     * @param isPercent true if 'health' is a percent value
+     */
+    public void heal(int health, boolean isPercent) {
+        if(isPercent) {
+            float percent = health;
+            health = (int)Math.floor(maxHealth*(percent/100));
+        }
+        health = Math.max(0, health);
+        this.health += health;
+        this.health = Math.min(maxHealth, this.health);
+    }
+
+    /**
+     * Sets the max health
+     */
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+
+    /**
      * For each Attack in compound attack, the flat defense for its respective type is subtracted,
      * then base damage absorption is taken off as a percentage e.g. 5.7 absorption -> damage*=1-(5.7/100)
      * @param cattack CompoundAttack to handle
@@ -40,7 +70,7 @@ public class HealthManager {
         float temp = 1;
         for(ArmorItem armor : armors) {
             if(armor != null) {
-                temp *= (1 - (absorption / 100));
+                temp *= (1 - (armor.absorption / 100));
             }
         }
         absorption -= temp;
@@ -63,8 +93,15 @@ public class HealthManager {
             DamageType type = attack.damageType;
 
             damage -= defenses[type.id];
+
+            if(damage < 0)
+                damage = 0;
+
             float useAbsorp = attack.damageType == DamageType.PHYSICAL ? absorption : absorption * 0.7f;
-            damage = (int) Math.floor(damage * (1 - (useAbsorp/100)));
+            damage = (int) Math.floor(damage * (1 - absorption));
+
+            if(damage < 0)
+                damage = 0;
 
             health -= damage;
             totalDamage += damage;

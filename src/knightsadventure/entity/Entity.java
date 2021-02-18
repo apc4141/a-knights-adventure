@@ -2,32 +2,29 @@ package knightsadventure.entity;
 
 import knightsadventure.entity.inventory.ArmorItem;
 import knightsadventure.entity.inventory.Inventory;
-
-import java.util.Random;
+import knightsadventure.entity.stats.Stat;
+import knightsadventure.entity.stats.StatsManager;
 
 /**
  *  Class that represents basic unit that will fight and have health, inventory and stats
  */
 public class Entity {
 
-    private String name;
+    private final String name;
 
-    private HealthManager health;
-    private Inventory inventory;
+    private final StatsManager statsManager;
+    private final Inventory inventory;
 
-    private int strength;
-
-    public Entity(String name, int maxHealth, int strength)
+    public Entity(String name, int maxHealth)
     {
         this.name = name;
-        this.health = new HealthManager(maxHealth);
+        this.statsManager = new StatsManager(maxHealth, 1);
         this.inventory = new Inventory();
-        this.strength = strength;
     }
 
     public boolean isDead()
     {
-        return health.isDead();
+        return statsManager.health.isDead();
     }
 
     /**
@@ -39,7 +36,7 @@ public class Entity {
     {
         ArmorItem[] armors = inventory.getArmors();
         try {
-            return health.handleAttack(attack, armors);
+            return statsManager.health.handleAttack(attack, armors);
         } catch(Exception e) {
             return -6969; // Important to return this
         }
@@ -54,8 +51,8 @@ public class Entity {
     public InteractionData doAttack(Entity ent)
     {
         //For testing purposes this is for now set to a non calculated value
-        CompoundAttack attack = new Attack(strength, DamageType.PHYSICAL).toCompound();
-        attack.addAttack(new Random().nextInt(50), DamageType.FIRE);
+        CompoundAttack attack = new Attack(statsManager.getStat(Stat.STRENGTH), DamageType.PHYSICAL).toCompound();
+        attack.addAttack(statsManager.getStat(Stat.BEAUTY), DamageType.FIRE);
 
         int healthTaken = ent.handleAttack(attack);
         return new InteractionData(this, ent, attack, healthTaken);
@@ -63,6 +60,10 @@ public class Entity {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public StatsManager getStatsManger() {
+        return statsManager;
     }
 
     public String getName()
@@ -73,6 +74,6 @@ public class Entity {
     @Override
     public String toString()
     {
-        return name+": "+health.toString();
+        return name+": "+statsManager.health.toString();
     }
 }

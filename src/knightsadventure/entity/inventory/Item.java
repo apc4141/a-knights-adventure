@@ -26,7 +26,7 @@ public abstract class Item {
     public Item(String name, ItemType itemType, boolean stackable) {
         this.name = name;
         this.itemType = itemType;
-        this.id = ID.generate(ID_LEN);
+        this.id = generateUniqueId();
         this.stackable = stackable;
     }
 
@@ -40,7 +40,7 @@ public abstract class Item {
     public Item(String name, ItemType itemType) {
         this.name = name;
         this.itemType = itemType;
-        this.id = ID.generate(ID_LEN);
+        this.id = generateUniqueId();
         this.stackable = true;
     }
     //endregion
@@ -63,5 +63,18 @@ public abstract class Item {
         return item.id.equals(this.id);
     }
 
+    /**
+     * Generates a new unique ID such that no other items in the registry have it
+     * @return Unique ID
+     */
+    private String generateUniqueId() {
+        boolean check = false;
+        String id = "";
+        while(!check) {
+            id = ID.generate(ID_LEN);
+            check = ItemRegistry.addItem(id, this);
+        }
+        return id;
+    }
 
 }
