@@ -63,7 +63,8 @@ public class HealthManager {
             DamageType type = attack.damageType;
 
             damage -= defenses[type.id];
-            damage = (int) Math.floor(damage * (1 - (absorption/100)));
+            float useAbsorp = attack.damageType == DamageType.PHYSICAL ? absorption : absorption * 0.7f;
+            damage = (int) Math.floor(damage * (1 - (useAbsorp/100)));
 
             health -= damage;
             totalDamage += damage;

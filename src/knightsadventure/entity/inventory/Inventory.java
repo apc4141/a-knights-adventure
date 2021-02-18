@@ -36,7 +36,7 @@ public class Inventory {
     public void addItem(ItemStack itemStack)
     {
         for(ItemStack is : items) {
-            if(is.getItem().equals(itemStack.getItem())) {
+            if((is.getItem().equals(itemStack.getItem())) && (is.isStackable())) {
                 is.changeAmount(itemStack.getAmount());
                 return;
             }

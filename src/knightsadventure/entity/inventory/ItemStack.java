@@ -32,6 +32,10 @@ public class ItemStack {
         return 0;
     }
 
+    public boolean isStackable() {
+        return item.stackable;
+    }
+
     public boolean isEmpty() {
         return amount <= 0;
     }
