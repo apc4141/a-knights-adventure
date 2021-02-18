@@ -1,22 +1,32 @@
 package knightsadventure;
 
 import knightsadventure.entity.*;
+import knightsadventure.entity.inventory.ArmorItem;
+
+import java.util.Arrays;
+
+import static knightsadventure.entity.inventory.ArmorType.CHESTPLATE;
 
 public class Main {
-    public static void main(String[] args)
-    {
-         Entity entity1 = new Entity("Aiden",2500, 150);
-         Entity entity2 = new Entity("Narun", 3000, 100);
+    public static void main(String[] args) throws Exception {
+        int[] defenses = new int[DamageType.values().length];
+        Arrays.fill(defenses, 50);
+        float absorption = 25;
 
-         while(!(entity1.isDead()) && !(entity2.isDead()))
-         {
-             printInteraction(entity1.doAttack(entity2));
-             System.out.println();
-             printInteraction(entity2.doAttack(entity1));
+        ArmorItem aidenArmor = new ArmorItem("Aiden's Chestplate", defenses, absorption, CHESTPLATE);
+        Entity aiden = new Entity("Aiden",3000, 100);
+        aiden.getInventory().equipArmor(aidenArmor);
+        Entity narun = new Entity("Narun", 3000, 100);
 
-             System.out.println("===========================================");
-             System.out.println("\n");
-         }
+        while(!(aiden.isDead()) && !(narun.isDead()))
+        {
+            printInteraction(aiden.doAttack(narun));
+            System.out.println();
+            printInteraction(narun.doAttack(aiden));
+
+            System.out.println("===========================================");
+            System.out.println("\n");
+        }
     }
 
     /**

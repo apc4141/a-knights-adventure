@@ -1,5 +1,8 @@
 package knightsadventure.entity;
 
+import knightsadventure.entity.inventory.ArmorItem;
+import knightsadventure.entity.inventory.Inventory;
+
 import java.util.Random;
 
 /**
@@ -10,6 +13,7 @@ public class Entity {
     private String name;
 
     private HealthManager health;
+    private Inventory inventory;
 
     private int strength;
 
@@ -17,6 +21,7 @@ public class Entity {
     {
         this.name = name;
         this.health = new HealthManager(maxHealth);
+        this.inventory = new Inventory();
         this.strength = strength;
     }
 
@@ -26,13 +31,18 @@ public class Entity {
     }
 
     /**
-     *  Has knightsadventure.entity handle basic attack
-     * @param attack CompoundAttack that consists of the damage the knightsadventure.entity should handle
-     * @return Amount of damage actually taken by knightsadventure.entity
+     *  Has entity handle basic attack
+     * @param attack CompoundAttack that consists of the damage the entity should handle
+     * @return Amount of damage actually taken by entity
      */
     private int handleAttack(CompoundAttack attack)
     {
-        return health.handleAttack(attack);
+        ArmorItem[] armors = inventory.getArmors();
+        try {
+            return health.handleAttack(attack, armors);
+        } catch(Exception e) {
+            return -6969; // Important to return this
+        }
     }
 
     /**
@@ -49,6 +59,10 @@ public class Entity {
 
         int healthTaken = ent.handleAttack(attack);
         return new InteractionData(this, ent, attack, healthTaken);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public String getName()
