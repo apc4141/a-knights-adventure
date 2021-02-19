@@ -19,11 +19,14 @@ public class Inventory {
     */
     //Equipped items
     private final ArmorItem[] armors;
-    
+
+    //Equipped weapon
+    private WeaponItem weapon;
 
     public Inventory() {
         items = new ArrayList<ItemStack>();
         armors = new ArmorItem[ArmorType.values().length];
+        weapon = (WeaponItem) ItemRegistry.getItem(ItemRegistry.FISTS_ID);
     }
 
     /**
@@ -41,6 +44,23 @@ public class Inventory {
             }
         }
         items.add(itemStack);
+    }
+
+    //region Equipping
+    /**
+     * Equips an equippable item
+     * @param item Must be either armor or a weapon
+     * @return If was not able to be equipped, will return false
+     */
+    public boolean equip(Item item) {
+        if(!item.isEquippable())
+            return false;
+        if(item.itemType == ItemType.WEAPON) {
+            equipWeapon((WeaponItem)item);
+        } else {
+            equipArmor((ArmorItem)item);
+        }
+        return true;
     }
 
     /**
@@ -74,6 +94,31 @@ public class Inventory {
     }
 
     /**
+     * Equips a weapon at specified index
+     * @param index Index of weapon in inventory
+     */
+    public void equipWeapon(int index) {
+        Item item = items.get(index).getItem();
+        if(item.getClass() != WeaponItem.class || item.itemType != ItemType.WEAPON)
+            return;
+        this.weapon = (WeaponItem)item;
+    }
+
+    /**
+     * Equips a weapon
+     * @param weapon Weapon to equip
+     */
+    public void equipWeapon(WeaponItem weapon) {
+        int index = indexOf(weapon);
+        if(index == -1) {
+            items.add(new ItemStack(weapon, 1));
+            index = items.size()-1;
+        }
+
+        equipWeapon(index);
+    }
+
+    /**
      * Unequips armor in specified slot
      * @param slot Slot to unequip armor from
      */
@@ -82,6 +127,8 @@ public class Inventory {
             armors[slot.id] = null;
         }
     }
+
+    //endregion
 
     /**
      * Checks if this inventory contains specified armor
@@ -118,4 +165,10 @@ public class Inventory {
     public ArmorItem[] getArmors() {
         return armors;
     }
+
+    /**
+     * Returns the equipped weapon item
+     * @return Weapon
+     */
+    public WeaponItem getWeapon() { return weapon; }
 }

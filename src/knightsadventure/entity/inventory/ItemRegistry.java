@@ -8,6 +8,8 @@ import java.util.HashMap;
  */
 public class ItemRegistry {
 
+    public static String FISTS_ID;
+
     private static HashMap<String, Item> registry;
     private static boolean initialized = false;
 
@@ -16,6 +18,13 @@ public class ItemRegistry {
             return;
 
         registry = new HashMap<>();
+
+        //Items
+        WeaponItem fists = new WeaponItem("Fists", WeaponType.FISTS);
+        fists.damages[0] = 4;
+        FISTS_ID = fists.getId();
+        addItem(FISTS_ID, fists);
+
         initialized = true;
     }
 

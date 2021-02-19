@@ -51,11 +51,11 @@ public class Entity {
     public InteractionData doAttack(Entity ent)
     {
         //For testing purposes this is for now set to a non calculated value
-        CompoundAttack attack = new Attack(statsManager.getStat(Stat.STRENGTH), DamageType.PHYSICAL).toCompound();
-        attack.addAttack(statsManager.getStat(Stat.BEAUTY), DamageType.FIRE);
+        CalculateAttack calculateAttack = new CalculateAttack(statsManager, inventory);
+        CompoundAttack compoundAttack = calculateAttack.calculate();
 
-        int healthTaken = ent.handleAttack(attack);
-        return new InteractionData(this, ent, attack, healthTaken);
+        int healthTaken = ent.handleAttack(compoundAttack);
+        return new InteractionData(this, ent, compoundAttack, healthTaken);
     }
 
     public Inventory getInventory() {

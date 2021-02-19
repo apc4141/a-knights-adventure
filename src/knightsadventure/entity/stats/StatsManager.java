@@ -22,11 +22,14 @@ import java.util.Arrays;
  */
 public class StatsManager {
 
+    public static final int STAT_MAX = 100;
+
     private static final double HDIV = 1/2.5;//Math.log10(LOG_BASE);
 
     private final int baseHealth;
     public final HealthManager health;
 
+    private int level;
     private final int[] stats;
 
     /**
@@ -39,6 +42,7 @@ public class StatsManager {
         this.baseHealth = baseHealth;
         this.health = new HealthManager(baseHealth);
         stats = new int[Stat.values().length];
+        level = Stat.values().length*statBase;
         Arrays.fill(stats, statBase);
         updateHealth();
     }
@@ -58,6 +62,9 @@ public class StatsManager {
             throw new Exception("Length of array stats must be of length Stat.values().length");
 
         this.stats = stats;
+        level = 0;
+        for(int stat : stats) level += stat;
+
         updateHealth();
     }
 
@@ -82,6 +89,13 @@ public class StatsManager {
      */
     public int getStat(Stat stat) {
         return stats[stat.id];
+    }
+
+    /**
+     * @return Characters level
+     */
+    public int getLevel() {
+        return level;
     }
 
     /**

@@ -52,6 +52,15 @@ public abstract class Item {
         return id;
     }
 
+    /**
+     * Returns whether this item may be used with Inventory class' equip function
+     * @return True if equippable
+     */
+    public boolean isEquippable() {
+        return (itemType == ItemType.WEAPON && getClass() == WeaponItem.class) ||
+                (itemType == ItemType.ARMOR && getClass() == ArmorItem.class);
+    }
+
     @Override
     public boolean equals(Object o) {
         if(this == o)

@@ -10,6 +10,9 @@ import java.util.Random;
  */
 public class HealthManager {
 
+    private float baseAbsorption;
+    private int[] baseDefenses;
+
     private int maxHealth;
     private int health;
 
