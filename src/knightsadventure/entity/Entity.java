@@ -8,7 +8,7 @@ import knightsadventure.entity.stats.StatsManager;
 /**
  *  Class that represents basic unit that will fight and have health, inventory and stats
  */
-public class Entity {
+public abstract class Entity {
 
     private final String name;
 
@@ -22,6 +22,16 @@ public class Entity {
         this.inventory = new Inventory();
     }
 
+    /**
+     * Handles next move;
+     * if player, ask player what to do
+     * if npc, calculate next move
+     */
+    public abstract void handleNextMove();
+
+    /**
+     * @return If is dead, return true
+     */
     public boolean isDead()
     {
         return statsManager.health.isDead();
