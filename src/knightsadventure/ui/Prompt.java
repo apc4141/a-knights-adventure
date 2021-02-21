@@ -1,5 +1,8 @@
 package knightsadventure.ui;
 
+import knightsadventure.io.Input;
+import knightsadventure.io.Output;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,36 +21,13 @@ public class Prompt {
 
     public ArrayList<String> prompts;
 
-    public InputStream in;
-    public OutputStream out;
-
     public Prompt(String... prompts) {
         this.prompts = new ArrayList<String>(Arrays.asList(prompts));
-
-        this.in = System.in;
-        this.out = System.out;
     }
 
     public Prompt(boolean hasExitOption, String... prompts) {
         this.prompts = new ArrayList<String>(Arrays.asList(prompts));
         if(hasExitOption) this.prompts.add("exit");
-
-        this.in = System.in;
-        this.out = System.out;
-    }
-
-    /**
-     * Sets the stream to which this is printed
-     */
-    public void setOut(OutputStream out) {
-        this.out = out;
-    }
-
-    /**
-     * Sets the stream to which this object reads from
-     */
-    public void setIn(InputStream in) {
-        this.in = in;
     }
 
     /**
@@ -59,14 +39,12 @@ public class Prompt {
 
         int i;
         for(i = 1; i <= prompts.size(); i++) {
-            println(i+".) "+ prompts.get(i - 1));
+            Output.println(i+".) "+ prompts.get(i - 1));
         }
 
-        Scanner scanner = new Scanner(in);
-
         while(true) {
-            println(PROMPT_MESSAGE);
-            String input = scanner.next();
+            Output.println(PROMPT_MESSAGE);
+            String input = Input.next();
             input = input.strip();
 
             // Check if they typed the word instead of number
@@ -84,23 +62,7 @@ public class Prompt {
                 }
             } catch (NumberFormatException ignore) { }
 
-            println("Unknown option: '"+input+"'!");
-
+            Output.println("Unknown option: '"+input+"'!");
         }
-    }
-
-    /**
-     * Prints to out
-     */
-    private void print(String toPrint) throws IOException {
-        for(byte bite : toPrint.getBytes()) out.write(bite);
-    }
-
-    /**
-     * Prints with newline
-     */
-    private void println(String toPrint) throws IOException {
-        print(toPrint);
-        out.write('\n');
     }
 }

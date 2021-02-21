@@ -1,5 +1,6 @@
 package knightsadventure.entity;
 
+import knightsadventure.io.Output;
 import knightsadventure.ui.Event;
 import knightsadventure.ui.LinkEvent;
 import knightsadventure.ui.events.AttackEvent;
@@ -16,9 +17,9 @@ public class PlayerEntity extends Entity {
         LinkEvent linkEvent = new LinkEvent("main", attackEvent) {
             @Override
             public void preLink() {
-                System.out.println();
-                System.out.println("====================================");
-                System.out.println("What would you like to do?");
+                Output.println();
+                Output.println("====================================");
+                Output.println("What would you like to do?");
             }
         };
         linkEvent.execute();

@@ -6,6 +6,8 @@ import knightsadventure.entity.NPCEntity;
 import knightsadventure.entity.PlayerEntity;
 import knightsadventure.entity.inventory.*;
 import knightsadventure.game.Battle;
+import knightsadventure.io.Input;
+import knightsadventure.io.Output;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -18,7 +20,7 @@ public class Main {
 
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("What shall this hero's name be?");
+        Output.println("What shall this hero's name be?");
         String name = scanner.next();
         PlayerEntity player = new PlayerEntity(name, 350);
 
@@ -45,17 +47,18 @@ public class Main {
         Battle battle = new Battle(player, naruto);
         Entity loser = battle.start();
 
-        System.out.println("=======================");
+        Output.println("=======================");
         if(loser.equals(naruto)) {
-            System.out.println(player.getName()+" wins!");
+            Output.println(player.getName()+" wins!");
         } else {
-            System.out.println("Naruto wins!");
+            Output.println("Naruto wins!");
         }
-        System.out.println("=======================");
+        Output.println("=======================");
     }
 
 
     private static void init() {
+        Input.init();
         ItemRegistry.init();
     }
 }

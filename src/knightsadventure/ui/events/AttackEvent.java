@@ -3,6 +3,7 @@ package knightsadventure.ui.events;
 import knightsadventure.entity.Attack;
 import knightsadventure.entity.Entity;
 import knightsadventure.entity.InteractionData;
+import knightsadventure.io.Output;
 import knightsadventure.ui.Event;
 
 /**
@@ -23,10 +24,9 @@ public class AttackEvent extends Event {
     public void execute() {
         InteractionData data = attacker.doAttack(receiver);
 
-        //TODO Change to allow output to any stream
-        System.out.println(data.attacker.getName()+" attacked "+data.receiver.getName()+":");
+        Output.println(data.attacker.getName()+" attacked "+data.receiver.getName()+":");
         for(Attack attack : data.attack)
-            System.out.println("-"+attack.attackPower+attack.damageType.sym);
-        System.out.println(data.receiver.getName()+" took "+data.healthTaken+" damage!");
+            Output.println("-"+attack.attackPower+attack.damageType.sym);
+        Output.println(data.receiver.getName()+" took "+data.healthTaken+" damage!");
     }
 }

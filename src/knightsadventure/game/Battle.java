@@ -2,6 +2,7 @@ package knightsadventure.game;
 
 import knightsadventure.entity.Entity;
 import knightsadventure.entity.stats.Stat;
+import knightsadventure.io.Output;
 
 import java.io.PrintStream;
 
@@ -28,9 +29,9 @@ public class Battle {
 
         while (!entity1.isDead() && !entity2.isDead()) {
 
-            System.out.println();
-            System.out.println("====================================");
-            System.out.println(entity1.toString()+" - "+entity2.toString());
+            Output.println();
+            Output.println("====================================");
+            Output.println(entity1.toString()+" - "+entity2.toString());
 
             if(entity1.moveBefore(entity2)) {
                 entity1.handleNextMove(entity2);
