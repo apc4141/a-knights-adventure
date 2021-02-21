@@ -3,6 +3,8 @@ package knightsadventure.entity.inventory;
 import knightsadventure.entity.DamageType;
 import knightsadventure.entity.HealthManager;
 
+import java.util.Arrays;
+
 /**
  * Represents a piece of armor that can be worn
  */
@@ -27,5 +29,28 @@ public class ArmorItem extends Item {
         this.defenses = defenses;
         this.absorption = absorption;
         this.armorType = armorType;
+    }
+
+    /**
+     *
+     * @param name Name of armor piece
+     * @param defense Every defense will equal this
+     * @param absorption Percentage of health that will be taken off
+     * @param armorType Type of armor piece
+     * @throws Exception if defenses is not of size DamageType.values().length
+     */
+    public ArmorItem(String name, int defense, float absorption, ArmorType armorType) throws Exception {
+        super(name, ItemType.ARMOR, false);
+        this.defenses = new int[DamageType.values().length];
+        Arrays.fill(this.defenses, defense);
+        this.absorption = absorption;
+        this.armorType = armorType;
+    }
+
+    /**
+     * Sets a specific damage defense
+     */
+    public void setDefense(int defense, DamageType type) {
+        defenses[type.id] = defense;
     }
 }

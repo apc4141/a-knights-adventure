@@ -79,14 +79,14 @@ public class Prompt {
             // Check if it was a number that they entered
             try {
                 int num = Integer.parseInt(input)-1;
-                if(num>=0&&num<prompts.size())
+                if(num>=0&&num<prompts.size()) {
                     return num;
+                }
             } catch (NumberFormatException ignore) { }
 
             println("Unknown option: '"+input+"'!");
 
         }
-
     }
 
     /**

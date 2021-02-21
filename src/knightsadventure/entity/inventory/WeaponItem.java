@@ -34,4 +34,20 @@ public class WeaponItem extends Item {
         type = weaponType;
     }
 
+    /**
+     * Sets the damages of this weapon
+     * @param damages damages
+     */
+    public void setDamages(int[] damages) {
+        this.damages = damages;
+    }
+
+    /**
+     * Sets a singlular damage type onto a weapon
+     * @param damage Amount of damage
+     * @param type Type of damage
+     */
+    public void setDamage(int damage, DamageType type) {
+        damages[type.id] = damage;
+    }
 }

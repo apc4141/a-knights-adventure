@@ -5,6 +5,8 @@ import knightsadventure.entity.inventory.Inventory;
 import knightsadventure.entity.stats.Stat;
 import knightsadventure.entity.stats.StatsManager;
 
+import java.util.Random;
+
 /**
  *  Class that represents basic unit that will fight and have health, inventory and stats
  */
@@ -27,7 +29,7 @@ public abstract class Entity {
      * if player, ask player what to do
      * if npc, calculate next move
      */
-    public abstract void handleNextMove();
+    public abstract void handleNextMove(Entity target);
 
     /**
      * @return If is dead, return true
@@ -68,6 +70,28 @@ public abstract class Entity {
         return new InteractionData(this, ent, compoundAttack, healthTaken);
     }
 
+    /**
+     * Compares whether enemy should move before target enemy
+     * @return true if should move before target entity
+     */
+    public boolean moveBefore(Entity target) {
+        StatsManager estats = target.getStatsManger();
+        if(statsManager.getStat(Stat.SPEED)>estats.getStat(Stat.SPEED)) {
+            return true;
+        } else if(statsManager.getStat(Stat.SPEED) == estats.getStat(Stat.SPEED)) {
+            if(statsManager.getStat(Stat.SKILL)>estats.getStat(Stat.SKILL)) {
+                return true;
+            } else if(statsManager.getStat(Stat.SKILL) == estats.getStat(Stat.SKILL)) {
+                if(statsManager.getStat(Stat.INTELLECT)>estats.getStat(Stat.INTELLECT)) {
+                    return true;
+                } else if(statsManager.getStat(Stat.INTELLECT) == estats.getStat(Stat.INTELLECT)) {
+                    return (new Random().nextInt(2) == 1);
+                }
+            }
+        }
+        return false;
+    }
+
     public Inventory getInventory() {
         return inventory;
     }
@@ -86,4 +110,5 @@ public abstract class Entity {
     {
         return name+": "+statsManager.health.toString();
     }
+
 }

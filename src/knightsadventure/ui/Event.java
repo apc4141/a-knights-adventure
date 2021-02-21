@@ -1,5 +1,7 @@
 package knightsadventure.ui;
 
+import java.io.PrintStream;
+
 /**
  * Event class that executes a task
  */

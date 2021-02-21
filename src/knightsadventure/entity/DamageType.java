@@ -1,14 +1,14 @@
 package knightsadventure.entity;
 
 public enum DamageType {
-    PHYSICAL(0, "physical", 'P'),
-    FIRE(1, "fire", 'F'),
-    WATER(2, "water", 'W'),
-    EARTH(3, "earth", 'E'),
-    MAGIC(4, "magic", 'M'),
-    LIGHT(5, "light", 'L'),
-    DARK(6, "dark", 'D'),
-    CURSE(7, "curse", 'C');
+    PHYSICAL(0, "physical", 'p'),
+    FIRE(1, "fire", 'f'),
+    WATER(2, "water", 'w'),
+    EARTH(3, "earth", 'e'),
+    MAGIC(4, "magic", 'm'),
+    LIGHT(5, "light", 'l'),
+    DARK(6, "dark", 'd'),
+    CURSE(7, "curse", 'c');
 
     public int id;
     public String name;
