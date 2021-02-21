@@ -4,7 +4,6 @@ import knightsadventure.entity.Attack;
 import knightsadventure.entity.Entity;
 import knightsadventure.entity.InteractionData;
 import knightsadventure.io.Output;
-import knightsadventure.ui.Event;
 
 /**
  * Event for one entity attacking another

@@ -86,4 +86,9 @@ public abstract class Item {
         return id;
     }
 
+    /**
+     * Returns this items info in a nice to read format
+     * @return This weapons info
+     */
+    public abstract String getInfo();
 }

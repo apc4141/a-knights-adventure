@@ -1,6 +1,9 @@
 package knightsadventure.entity.inventory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Holds a players items/weapons/armors
@@ -119,6 +122,13 @@ public class Inventory {
     }
 
     /**
+     * Unequips weapon and equips fists
+     */
+    public void unequipWeapon() {
+        weapon = (WeaponItem) ItemRegistry.getItem(ItemRegistry.FISTS_ID);
+    }
+
+    /**
      * Unequips armor in specified slot
      * @param slot Slot to unequip armor from
      */
@@ -126,6 +136,22 @@ public class Inventory {
         if(armors[slot.id] != null) {
             armors[slot.id] = null;
         }
+    }
+
+    /**
+     * @return Returns true if item is equipped as armor or weapon else returns false
+     */
+    public boolean isEquipped(Item item) {
+        if(item.itemType == ItemType.WEAPON) {
+            WeaponItem weaponItem = (WeaponItem) item;
+            return weapon.equals(weaponItem);
+        } else if(item.itemType == ItemType.ARMOR) {
+            ArmorItem armorItem = (ArmorItem) item;
+            for(ArmorItem armorPiece : armors)
+                if(armorItem.equals(armorPiece))
+                    return true;
+        }
+        return false;
     }
 
     //endregion
@@ -171,4 +197,21 @@ public class Inventory {
      * @return Weapon
      */
     public WeaponItem getWeapon() { return weapon; }
+
+    /**
+     * Returns a list of all the weapons in the inventory
+     * @return all weapons
+     */
+    public HashMap<Integer, WeaponItem> getWeapons() {
+        HashMap<Integer, WeaponItem> weaponsMap = new HashMap<Integer, WeaponItem>();
+
+        for(int i = 0; i < items.size(); i++) {
+            Item item = items.get(i).getItem();
+            if(item.itemType == ItemType.WEAPON) {
+                WeaponItem weapon = (WeaponItem) item;
+                weaponsMap.put(i, weapon);
+            }
+        }
+        return weaponsMap;
+    }
 }

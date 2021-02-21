@@ -53,4 +53,9 @@ public class ArmorItem extends Item {
     public void setDefense(int defense, DamageType type) {
         defenses[type.id] = defense;
     }
+
+    @Override
+    public String getInfo() {
+        return "Not implemented - in ArmorItem.java";
+    }
 }

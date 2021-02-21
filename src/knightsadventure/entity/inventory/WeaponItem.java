@@ -1,6 +1,7 @@
 package knightsadventure.entity.inventory;
 
 import knightsadventure.entity.DamageType;
+import knightsadventure.entity.stats.Stat;
 
 import java.util.Arrays;
 
@@ -49,5 +50,29 @@ public class WeaponItem extends Item {
      */
     public void setDamage(int damage, DamageType type) {
         damages[type.id] = damage;
+    }
+
+    @Override
+    public String getInfo() {
+        StringBuilder info = new StringBuilder("--- " + name + " ---\n");
+        String indent = "   ";
+
+        // Scaling
+        info.append("Scaling:\n");
+        for(int i = 0; i < Stat.values().length; i++) {
+            info.append(indent);
+            info.append(Stat.values()[i].name).append(": ").append(type.scaling[i]);
+            info.append("\n");
+        }
+
+        // Attack Power
+        info.append("Attack Power:\n");
+        for(int i = 0; i < DamageType.values().length; i++) {
+            info.append(indent);
+            info.append(damages[i]).append(" ").append(DamageType.values()[i].name);
+            info.append(i < DamageType.values().length - 1 ? "\n" : "");
+        }
+
+        return info.toString();
     }
 }
